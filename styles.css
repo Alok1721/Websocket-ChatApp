@@ -1,3 +1,8 @@
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body, html {
   margin: 0;
   padding: 0;
@@ -11,17 +16,18 @@ body, html {
   background-color: #121212;
 }
 
+/* Container */
 .app-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  /* max-width: 700px; */
   margin: 0 auto;
   background: #1e1e1e;
   box-shadow: 0 0 15px rgba(0,0,0,0.7);
 }
 
+/* Header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -56,6 +62,7 @@ body, html {
   background: #b73024;
 }
 
+/* Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -80,11 +87,6 @@ body, html {
   color: #eee;
   box-shadow: 0 0 15px rgba(74, 144, 226, 0.7);
   user-select: none;
-  @media(max-width:480px)
-  {
-    padding: 1.4rem;
-    max-width: 330px;
-  }
 }
 
 .modal-content h2 {
@@ -124,6 +126,7 @@ body, html {
   background: #367ac3;
 }
 
+/* Chat Area */
 .chat-area {
   flex: 1;
   padding: 1rem 1.5rem 6rem;
@@ -132,8 +135,10 @@ body, html {
   scroll-behavior: smooth;
 }
 
+
 .message {
-  max-width: 70%;
+  width: fit-content;
+  max-width: 90%;
   margin: 0.4rem 0.6rem;
   padding: 10px 14px;
   border-radius: 12px;
@@ -169,10 +174,10 @@ body, html {
 }
 
 .message span.timestamp {
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   color: #999;
   position: absolute;
-  bottom: 4px;
+  bottom: 1px;
   right: 10px;
   user-select: none;
 }
@@ -181,6 +186,7 @@ body, html {
   background: #2b7de9;
 }
 
+/* Input Area */
 .input-area {
   position: fixed;
   bottom: 0;
@@ -193,7 +199,7 @@ body, html {
   border-radius: 10px;
   padding: 0.8rem 1rem;
   display: flex;
-  gap: 0.6rem;
+  gap: 0.5rem;
   align-items: center;
   z-index: 20;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.7);
@@ -201,6 +207,7 @@ body, html {
 
 .chat-input {
   flex: 1;
+  min-width: 0;
   padding: 0.7rem 1rem;
   font-size: 1rem;
   border-radius: 24px;
@@ -216,28 +223,18 @@ body, html {
 }
 
 .input-area button {
-  border: none;
+  flex-shrink: 0;
   padding: 0.6rem 1.4rem;
   font-weight: 600;
   border-radius: 24px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  border: none;
   color: white;
-  @media (max-width:480px)
-  {
-    padding: 0.5rem 1rem;
-    font-size:0.85rem;
-  }
+  background-color: #4a90e2;
+  transition: background-color 0.3s ease;
 }
 
-.btn-send {
-  background: #4a90e2;
-}
-
-.btn-send:hover {
-  background: #367ac3;
-}
-
+/* Button Styles */
 .btn-update {
   background: #3b82f6;
 }
@@ -264,96 +261,68 @@ body, html {
   background: #b73024;
 }
 
-.chat-area::-webkit-scrollbar {
-  width: 8px;
-}
-
-.chat-area::-webkit-scrollbar-thumb {
-  background-color: #555;
-  border-radius: 4px;
-}
-
-.chat-area::-webkit-scrollbar-track {
-  background: #222;
-}
-
+/* Media Queries */
 @media (max-width: 480px) {
-  .app-container {
-    max-width: 100%;
+  .message {
+    font-size: 0.9rem;
   }
 
-  .message {
-    max-width: 85%;
+  .chat-input,
+  .modal-input,
+  .modal-content button,
+  .input-area button {
+    width: 100%;
     font-size: 0.9rem;
   }
 
   .input-area {
+    flex-direction: column;
+    align-items: stretch;
     padding: 0.6rem 0.8rem;
   }
 
-  .input-area button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
   .modal-content {
     padding: 1.4rem;
     max-width: 330px;
-  }
-  .chat-input {
-    font-size: 0.9rem;
-    padding: 0.6rem 0.9rem;
-  }
-
-  .input-area button {
-    font-size: 0.85rem;
-    padding: 0.5rem 0.9rem;
   }
 }
 
 @media (max-width: 360px) {
   .header {
-    padding: 0.8rem 1rem; 
+    padding: 0.8rem 1rem;
   }
 
   .title {
-    font-size: 1.1rem; 
+    font-size: 1.1rem;
   }
 
   .btn-logout {
-    padding: 0.3rem 0.8rem; 
+    padding: 0.3rem 0.8rem;
     font-size: 0.8rem;
   }
 
   .modal-content {
-    padding: 1rem; 
-    max-width: 260px; 
+    padding: 1rem;
+    max-width: 260px;
   }
 
   .modal-content h2 {
-    font-size: 1rem; 
+    font-size: 1rem;
   }
 
-  .modal-input {
-    padding: 0.5rem 0.7rem; 
+  .modal-input,
+  .chat-input,
+  .input-area button {
     font-size: 0.85rem;
-  }
-
-  .btn-send {
-    padding: 0.4rem 1rem; 
-    font-size: 0.85rem;
-  }
-
-  .chat-area {
-    padding: 0.6rem 0.8rem 4.5rem; 
+    padding: 0.5rem 0.7rem;
   }
 
   .message {
-    max-width: 90%; 
     font-size: 0.85rem;
   }
 
   .message span.username {
-    font-size: 0.7rem; 
+    font-size: 0.7rem;
   }
 
   .message span.timestamp {
@@ -361,17 +330,7 @@ body, html {
   }
 
   .input-area {
-    padding: 0.5rem 0.6rem; 
+    padding: 0.5rem 0.6rem;
     gap: 0.3rem;
-  }
-
-  .chat-input {
-    padding: 0.5rem 0.7rem; 
-    font-size: 0.85rem;
-  }
-
-  .input-area button {
-    padding: 0.4rem 0.8rem; 
-    font-size: 0.8rem;
   }
 }
