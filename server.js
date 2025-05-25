@@ -4,11 +4,21 @@ const fs = require('fs');
 const path = require('path');
 
 const server = http.createServer((req, res) => {
-  if (req.url === '/') {
+  if (req.url === '/' || req.url === '/index.html') {
     fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
       if (err) {
         res.writeHead(500);
         res.end('Error loading index.html');
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(data);
+    });
+  } else if (req.url === '/chat.html') {
+    fs.readFile(path.join(__dirname, 'chat.html'), (err, data) => {
+      if (err) {
+        res.writeHead(500);
+        res.end('Error loading chat.html');
         return;
       }
       res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -24,6 +34,19 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/javascript' });
       res.end(data);
     });
+  } else if (req.url === '/styles.css') {
+    fs.readFile(path.join(__dirname, 'styles.css'), (err, data) => {
+      if (err) {
+        res.writeHead(500);
+        res.end('Error loading styles.css');
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'text/css' });
+      res.end(data);
+    });
+  } else if (req.url === '/favicon.ico') {
+    res.writeHead(204);
+    res.end();
   } else {
     res.writeHead(404);
     res.end('Not found');
@@ -31,17 +54,17 @@ const server = http.createServer((req, res) => {
 });
 
 const wss = new WebSocket.Server({ server });
-let messages = []; // temporary storage of all messages 
+let messages = [];//temp message
 let nextId = 1;
 
 wss.on('connection', (ws) => {
-  ws.send(JSON.stringify({ type: 'init', messages }));//for first time connection with server 
+  ws.send(JSON.stringify({ type: 'init', messages }));
 
   ws.on('message', (data) => {
     const message = JSON.parse(data);
 
     if (message.type === 'create') {
-      const newMessage = { id: nextId++, text: message.text, timestamp: new Date().toISOString() };
+      const newMessage = { id: nextId++, text: message.text, timestamp: new Date().toISOString(), username: message.username };
       messages.push(newMessage);
       broadcast({ type: 'create', message: newMessage });
     } else if (message.type === 'update') {

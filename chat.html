@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatApp</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="dark-bg">
+  <div class="app-container">
+    <header class="header">
+      <h1 class="title">ChatApp</h1>
+      <button id="logout" class="btn-logout">Logout</button>
+    </header>
+    <main id="chat" class="chat-area"></main>
+    <footer class="input-area">
+      <input
+        type="text"
+        id="input"
+        placeholder="Type a message..."
+        autocomplete="off"
+        class="chat-input"
+      />
+      <button id="send" class="btn-send">Send</button>
+      <button id="update" class="btn-update" disabled>Update</button>
+      <button id="delete" class="btn-delete" disabled>Delete</button>
+    </footer>
+  </div>
+  <script src="/client.js"></script>
+</body>
+</html>
