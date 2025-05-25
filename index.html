@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp-like Chat App</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #chat { border: 1px solid #ccc; padding: 10px; height: 400px; overflow-y: auto; }
+    .message { padding: 5px; margin: 5px; background: #f1f1f1; border-radius: 5px; }
+    .message span { font-size: 0.8em; color: #666; }
+    #input { width: 70%; padding: 5px; }
+    #send, #update, #delete { padding: 5px 10px; margin: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Simple Chat App</h1>
+  <div id="chat"></div>
+  <input type="text" id="input" placeholder="Type a message...">
+  <button id="send">Send</button>
+  <button id="update" disabled>Update</button>
+  <button id="delete" disabled>Delete</button>
+  <script src="client.js"></script>
+</body>
+</html>
